@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import './style.scss';
-
+import MortgageInputForm from './components/MortgageInputForm';
 export default class App extends Component {
   render() {
-    return <div>Welcome to React Boilerplate App</div>;
+    return (
+      <div>
+        <MortgageInputForm />
+      </div>
+    );
   }
 }
