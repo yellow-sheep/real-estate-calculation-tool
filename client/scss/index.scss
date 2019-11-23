@@ -1,0 +1,120 @@
+label {
+  display: flex;
+  width: 100%;
+  font-size: large;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  border: 1px solid $border-color;
+  background-color: white;
+  border-radius: 4px;
+  padding: $input-padding;
+  width: 100%;
+  font-size: medium;
+
+  &:focus {
+    outline: none;
+  }
+}
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+  padding: 2rem;
+  align-items: stretch;
+}
+
+.input-group {
+  margin: 2rem;
+  min-width: 40vw;
+}
+
+.input-box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+.add-on {
+  text-align: center;
+  background-color: $primary-color;
+  border: 1px solid $border-color;
+  padding: $input-padding;
+  border-radius: 4px;
+}
+
+.left-flat {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-style: none;
+}
+
+.right-flat {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.radio-group {
+  display: flex;
+
+  label {
+    background-color: $secondary-color;
+    padding: $input-padding;
+    font-size: 16px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    justify-content: center;
+
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+
+  input[type='radio'] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+
+  .selected-input {
+    background-color: $primary-color;
+  }
+}
+
+.calculate-btn {
+  background-color: $primary-color;
+  max-width: 70%;
+  transition: all 0.2s ease-in-out;
+
+  &:before {
+    content: '';
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+  }
+  &:hover:enabled {
+    background-color: $border-color;
+    color: #fff;
+    cursor: pointer;
+    border-bottom: 4px solid lighten(#4e5d5f, 10%);
+    &:before {
+      transform: skewX(-45deg) translateX(13.5em);
+      transition: all 0.5s ease-in-out;
+    }
+  }
+
+  &:disabled {
+    background-color: $secondary-color;
+  }
+}
+
+.calculated-result {
+  font-size: xx-large;
+}
