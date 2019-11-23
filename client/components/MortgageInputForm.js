@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import LoanTermInput from './LoanTermInput';
+import InputWithAddOn from './InputWithAddOn';
 class MortgageInputForm extends Component {
   constructor(props) {
     super(props);
@@ -9,12 +11,12 @@ class MortgageInputForm extends Component {
       interest_rate: 0,
       down_payment: 0,
       loan_term: 0,
-      checked_for_30: '',
       monthly_payment: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleLoanTermChange = this.handleLoanTermChange.bind(this);
   }
   async handleSubmit(event) {
     event.preventDefault();
@@ -42,11 +44,6 @@ class MortgageInputForm extends Component {
     this.setState({ [name]: parsedValue });
   }
 
-  //   handleCheck(event){
-  //       this.handleChange(event);
-
-  //   }
-
   render() {
     console.log(this.state);
     const {
@@ -63,8 +60,6 @@ class MortgageInputForm extends Component {
       loan_term === 0 ||
       down_payment === 0 ||
       interest_rate === 0;
-    const checkedForFifteen = loan_term === 15 ? 'active-term' : '';
-    const checkedForThirty = loan_term === 30 ? 'active-term' : '';
     const displayMothlyPayment =
       monthly_payment === '' ? '' : `Your monthly payment is $${monthly_payment}`;
     return (
@@ -81,19 +76,14 @@ class MortgageInputForm extends Component {
               />
             </div>
           </div>
-          <div className="input-group">
-            <label>Home Value</label>
-            <div className="input-box">
-              <div className="add-on right-flat">$</div>
-              <input
-                className="left-flat"
-                type="text"
-                name="property_value"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-            </div>
-          </div>
+          <InputWithAddOn
+            lableName="Home Value"
+            addOnClassName="add-on right-flat"
+            inputClassName="left-flat"
+            name="property_value"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
           <div className="input-group">
             <label>Interest Rate</label>
             <div className="input-box">
@@ -107,40 +97,17 @@ class MortgageInputForm extends Component {
               <div className="add-on left-flat">%</div>
             </div>
           </div>
+          <InputWithAddOn
+            lableName="Down Payment"
+            addOnClassName="add-on right-flat"
+            inputClassName="left-flat"
+            name="down_payment"
+            value={this.state.value}
+            handleChange={this.handleChange}
+          />
 
-          <div className="input-group">
-            <label>Down Payment</label>
-            <div className="input-box">
-              <div className="add-on right-flat">$</div>
-              <input
-                className="left-flat"
-                type="text"
-                name="down_payment"
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-            </div>
-          </div>
+          <LoanTermInput handleChange={this.handleChange} loan_term={loan_term} />
 
-          <div className="input-group">
-            <label>Amortized For</label>
-            <div className="radio-group">
-              <label>
-                <input
-                  className="active-term"
-                  type="radio"
-                  name="loan_term"
-                  value="15"
-                  onChange={this.handleChange}
-                />
-                15
-              </label>
-              <label className={checkedForThirty}>
-                <input type="radio" name="loan_term" value="30" onChange={this.handleChange} />
-                30
-              </label>
-            </div>
-          </div>
           <input
             type="submit"
             value="Calculate"
@@ -148,7 +115,7 @@ class MortgageInputForm extends Component {
             disabled={ifCalculateDisabled}
           />
         </form>
-        <div>{displayMothlyPayment}</div>
+        <div className="calculated-result">{displayMothlyPayment}</div>
       </React.Fragment>
     );
   }
